@@ -9,15 +9,6 @@ App.Models.LayersPresenter = Backbone.Model.extend({
     }
   },
 
-  layersInfo: {
-    forest: {
-      view: App.Views.ForestLayer
-    },
-    loss: {
-      view: App.Views.LossLayer
-    }
-  },
-
   initialize: function() {
     this.on('change', function() {
       app.mediator.trigger('layersPresenter:change');

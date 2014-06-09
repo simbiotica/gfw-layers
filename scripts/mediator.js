@@ -17,7 +17,7 @@ App.Mediator.prototype.recreateLayers = function() {
 App.Mediator.prototype.initLayer = function(isActive, layerName) {
   if (isActive) {
     if (!app.views[layerName + 'Layer']) {
-      app.views[layerName + 'Layer'] = new app.models.layersPresenter.layersInfo[layerName].view();
+      app.views[layerName + 'Layer'] = new App.Views[_(layerName).capitalize() + 'Layer']();
     }
     if (!app.views[layerName + 'Layer'].rendered) app.views[layerName + 'Layer'].render();
   } else {
