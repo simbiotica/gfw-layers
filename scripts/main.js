@@ -6,7 +6,7 @@ window.App = {
   Mediator: {},
   initialize: function() {
     app.routers.main = new App.Routers.Main();
-    Backbone.history.start({pushState: true, root: '/'});
+    Backbone.history.start(); // {pushState: true}
   }
 };
 
