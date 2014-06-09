@@ -1,6 +1,6 @@
 App.Views.Map = Backbone.View.extend({
   
-  initialize: function() {
+  initialize: function() {
     this.render();
   },
 
@@ -16,6 +16,6 @@ App.Views.Map = Backbone.View.extend({
 
     google.maps.event.addListenerOnce(this.map, 'idle', function() {
     });
-  },
+  }
 
 });

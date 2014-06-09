@@ -4,10 +4,12 @@ App.Views.CanvasLayer = Backbone.View.extend({
     this.tileSize = new google.maps.Size(256, 256);
     this.tiles = {};
     this.map = app.views.map.map;
+    this.rendered = false;
   },
 
   render: function() {
-    this.map.overlayMapTypes.insertAt(0, this)
+    if (!this.rendered) this.map.overlayMapTypes.push(this);
+    this.rendered = true;
   },
 
   getTile: function(coord, zoom, ownerDocument) {
@@ -92,17 +94,18 @@ App.Views.CanvasLayer = Backbone.View.extend({
   hide: function() {
   },
 
-  remove: function() {
+  removeLayer: function() {
     var overlays_length = this.map.overlayMapTypes.getLength();
 
     if (overlays_length > 0) {
       for (var i = 0; i< overlays_length; i++) {
         var layer = this.map.overlayMapTypes.getAt(i);
         if (layer && layer.name == this.name) this.map.overlayMapTypes.removeAt(i);
+        this.rendered = false;
+        // Backbone.View.prototype.remove.call(this);
       }
     }
     
-    // Backbone.View.prototype.remove.call(this);
   },
 
   filterCanvasImage: function() {

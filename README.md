@@ -11,3 +11,10 @@ updatedName.first = "Kazuhiro";
 myInfo.set("name", updatedName);
 
 Source: http://www.crittercism.com/blog/nested-attributes-in-backbone-js-models/
+
+## Backbone inheritance
+
+http://www.erichynds.com/blog/backbone-and-inheritance
+
+app.models.layersPresenter.setAttr('forestChange', 'loss', true);
+app.models.layersPresenter.setAttr('forestCover', 'forest', true);
