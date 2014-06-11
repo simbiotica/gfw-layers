@@ -88,15 +88,8 @@ App.Views.CanvasLayer = Backbone.View.extend({
     return this.layer;
   },
 
-  show: function() {
-  },
-
-  hide: function() {
-  },
-
   removeLayer: function() {
     var overlays_length = this.map.overlayMapTypes.getLength();
-
     if (overlays_length > 0) {
       for (var i = 0; i< overlays_length; i++) {
         var layer = this.map.overlayMapTypes.getAt(i);
@@ -108,6 +101,12 @@ App.Views.CanvasLayer = Backbone.View.extend({
   },
 
   filterCanvasImage: function() {
+  },
+
+  filterTiles: function() {
+    for(var i in this.tiles) {
+      this.filterTile(this.tiles[i]);
+    }
   },
 
   filterTile: function(canvas) {

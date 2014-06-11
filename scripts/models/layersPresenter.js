@@ -2,10 +2,15 @@ App.Models.LayersPresenter = Backbone.Model.extend({
 
   defaults: {
     forestChange: {
-      loss: false
+      loss: {
+        active: false,
+        timelineDate: [2001, 2013]
+      }
     },
     forestCover: {
-      forest: false
+      forest: {
+        active: false
+      }
     }
   },
 
@@ -16,36 +21,41 @@ App.Models.LayersPresenter = Backbone.Model.extend({
     });
   },
 
-  setAttr: function(attr, nested, value) {
-    var updatedAttr = _.clone(this.get(attr));
-    updatedAttr[nested] = value;
-    this.set(attr, updatedAttr);
-  },
-
   setFromUrl: function(attrs) {
-    /* recieves:
-    {
-      baseLayer: 'forma',
-      secondaryLayers: '500,100,300,500',
-      coords: '12.232, 32.342'
-    }
-    
-    Should return the object as it is
-    */
+    var self = this;
+    attrs = attrs || {};
+
+    _.each(this.toJSON(), function(category, i) {
+      var layer = self.get(i)[attrs.baseLayer];
+      if (layer) {
+        layer.active = true;
+        self.spread();
+      }
+    });
   },
 
   toUrl: function() {
     var url = ''
 
-    _.each(app.models.layersPresenter.toJSON(), function(layer) {
-      _.each(layer, function(l, i) {
-        if (l) {
-          url = '/' + i;
+    _.each(app.models.layersPresenter.toJSON(), function(category) {
+      _.each(category, function(layer, layerName){
+        if (layer.active) {
+          url = '/' + layerName;
         }
-      })
+      });
     });
 
     return url;
   },
+
+  spread: function() {
+    this.trigger('change'); 
+  },
+
+  getLayer: function(layerName) {
+    if (layerName == 'loss') {
+      return this.get('forestChange').loss;
+    }
+  }
 
 });
