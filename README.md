@@ -2,7 +2,7 @@
 
 When updating presenter model, you need to call presenter.spread() to trigger events.
 
-## Improve canvas performance
+## Canvas performance
 
 Caching processed canvas image data makes the render smother but will break eventually of lack of memory. Tested with underscore memoize.
 

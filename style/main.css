@@ -12,14 +12,16 @@ body {
   left: 0;
   right: 0;
   bottom: 50px;
-  width: 80%;
-  height: 60px;
+  width: 910px;
+  height: 55px;
   margin: auto;
   background: white;
+  border: 1px solid #bbb;
+  border-radius: 3px;
 }
 
 .axis {
-  font: 10px sans-serif;
+  font: 11px sans-serif;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
@@ -30,6 +32,13 @@ body {
   stroke: #000;
   stroke-opacity: .3;
   stroke-width: 10px;
+  stroke-linecap: round;
+}
+
+.axis .selected-domain {
+  stroke: green;
+  stroke-opacity: 1;
+  stroke-width: 8px;
   stroke-linecap: round;
 }
 
