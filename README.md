@@ -1,5 +1,3 @@
-# Problems found
-
 ## Presenter and events
 
 When updating presenter model, you need to call presenter.spread() to trigger events.
