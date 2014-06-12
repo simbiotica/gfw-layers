@@ -24,10 +24,6 @@ App.Views.ImazonLayer = App.Views.CartodbLayer.extend({
     this.parent.initialize.apply(this);
 
     // app.views.lossTimeline = this.timeline = new App.Views.LossTimeline();
-  },
-
-  setQuery = function() {
-
   }
 
 });

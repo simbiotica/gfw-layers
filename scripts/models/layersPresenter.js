@@ -27,7 +27,7 @@ App.Models.LayersPresenter = Backbone.Model.extend({
 
   setFromUrl: function(attrs) {
     var self = this;
-    attrs = attrs || {};
+    attrs = attrs || {};
 
     _.each(this.toJSON(), function(category, i) {
       var layer = self.get(i)[attrs.baseLayer];
