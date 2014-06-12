@@ -2,19 +2,12 @@
 
 ## Presenter and events
 
-model.on('change', callback) won't be triggered for nested attributes.
+When updating presenter model, you need to call presenter.spread() to trigger events.
 
-Assuming that your nested attributes are a modest size, we can use Underscore.js’s handy _.clone() method. This method returns a shallow-clone of the specified object.
+## Improve canvas performance
 
-var updatedName = _.clone(myInfo.get("name"));
-updatedName.first = "Kazuhiro";
-myInfo.set("name", updatedName);
+Caching processed canvas image data makes the render smother but will break eventually of lack of memory. Tested with underscore memoize.
 
-Source: http://www.crittercism.com/blog/nested-attributes-in-backbone-js-models/
-
-## Backbone inheritance
-
-http://www.erichynds.com/blog/backbone-and-inheritance
-
-app.models.layersPresenter.setAttr('forestChange', 'loss', true);
-app.models.layersPresenter.setAttr('forestCover', 'forest', true);
+Another ideas: 
+  - We could proccess those filters on the server and cache them.
+  - Use workers to proccess just some images on the background. For example those for the timeline, so when the user plays the animation, it could be already loaded. (http://www.html5rocks.com/en/tutorials/workers/basics/)

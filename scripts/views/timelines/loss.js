@@ -12,7 +12,6 @@ App.Views.LossTimeline = App.Views.Timeline.extend({
   },
 
   onBrush: function() {
-    console.log('brushhh');
     var self = app.views.lossTimeline,
         value = self.brush.extent()[0],
         timelineDate = app.models.layersPresenter.getLayer('loss').timelineDate;
