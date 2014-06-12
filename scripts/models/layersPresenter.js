@@ -5,6 +5,10 @@ App.Models.LayersPresenter = Backbone.Model.extend({
       loss: {
         active: false,
         timelineDate: [2001, 2013]
+      },
+      imazon: {
+        active: false,
+        timelineDate: [moment([2007, 1, 1]), moment([2011, 8, 1])]
       }
     },
     forestCover: {
@@ -56,6 +60,10 @@ App.Models.LayersPresenter = Backbone.Model.extend({
     if (layerName == 'loss') {
       return this.get('forestChange').loss;
     }
-  }
+
+    if (layerName == 'imazon') {
+      return this.get('forestChange').imazon;
+    }
+   }
 
 });

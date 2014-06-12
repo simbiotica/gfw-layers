@@ -84,10 +84,6 @@ App.Views.CanvasLayer = Backbone.View.extend({
     xhr.send();
   },
 
-  getLayer: function() {
-    return this.layer;
-  },
-
   removeLayer: function() {
     var overlays_length = this.map.overlayMapTypes.getLength();
     if (overlays_length > 0) {

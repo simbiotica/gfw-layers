@@ -2,8 +2,19 @@ App.Views.Timeline = Backbone.View.extend({
 
   className: 'timeline timeline-date-range',
 
+  opts: {
+    dateRange: [2001, moment().year()],
+    layerName: '',
+    xAxis: {
+      months: {
+        enabled: false,
+        steps: false
+      }
+    }
+  },
+
   initialize: function() {
-    this.dateRange = this.dateRange || [2001, moment().year()];
+    // Status
     this.playing = false;
 
     // d3 slider objets
@@ -32,7 +43,7 @@ App.Views.Timeline = Backbone.View.extend({
         height = 40 - margin.bottom - margin.top;
 
     this.xscale = d3.scale.linear()
-        .domain(this.dateRange)
+        .domain(this.opts.dateRange)
         .range([0, width])
         .clamp(true);
 
@@ -55,7 +66,7 @@ App.Views.Timeline = Backbone.View.extend({
         .call(d3.svg.axis()
           .scale(this.xscale)
           .orient("bottom")
-          .ticks(this.dateRange[1] - this.dateRange[0])
+          .ticks(this.opts.dateRange[1] - this.opts.dateRange[0])
           .tickFormat(function(d) { return String(d); })
           .tickSize(0)
           .tickPadding(12))
@@ -79,7 +90,7 @@ App.Views.Timeline = Backbone.View.extend({
 
     this.handlers.right = this.handlers.left
        .select(function() { return this.parentNode.appendChild(this.cloneNode(true)); })
-       .attr('cx', this.xscale(this.dateRange[1]))
+       .attr('cx', this.xscale(this.opts.dateRange[1]))
        .style('fill', 'green');
 
     this.slider.selectAll(".extent,.resize")
@@ -112,7 +123,7 @@ App.Views.Timeline = Backbone.View.extend({
   onAnimate: function() {
     var self = app.views.lossTimeline,
         value = self.hiddenBrush.extent()[0],
-        timelineDate = app.models.layersPresenter.getLayer(self.layerName).timelineDate;
+        timelineDate = app.models.layersPresenter.getLayer(self.opts.layerName).timelineDate;
 
     if (!self.playing) return;
 
@@ -167,7 +178,7 @@ App.Views.Timeline = Backbone.View.extend({
   onBrush: function(brushend) {
     var self = app.views.lossTimeline,
         value = self.brush.extent()[0],
-        timelineDate = app.models.layersPresenter.getLayer(self.layerName).timelineDate;
+        timelineDate = app.models.layersPresenter.getLayer(self.opts.layerName).timelineDate;
 
     if (self.playing && brushend) self.stopAnimation();
     if (self.playing) return;
@@ -214,7 +225,6 @@ App.Views.Timeline = Backbone.View.extend({
       ];
     }
 
-
     var d3line2 = d3.svg.line()
       .x(function(d){return d.x;})
       .y(function(d){return d.y;})
@@ -231,7 +241,7 @@ App.Views.Timeline = Backbone.View.extend({
   },
 
   updateTimelineDate: function(timelineDate) {
-    app.models.layersPresenter.getLayer(this.layerName).timelineDate = timelineDate;
+    app.models.layersPresenter.getLayer(this.opts.layerName).timelineDate = timelineDate;
     app.models.layersPresenter.spread();
   }
 });
