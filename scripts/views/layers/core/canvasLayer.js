@@ -99,7 +99,7 @@ App.Views.CanvasLayer = Backbone.View.extend({
   filterCanvasImage: function() {
   },
 
-  filterTiles: function() {
+  updateTiles: function() {
     for(var i in this.tiles) {
       this.filterTile(this.tiles[i]);
     }

@@ -1,18 +1,19 @@
 App.Mediator = function() {
-  this.on('layersPresenter:change', this.recreateLayers);
-  this.on('layersPresenter:change', this.updateUrl);
+  /* TODO
+   * Be more specific:
+   *   map:change
+   *   layer:change
+  */
+
+  this.on('presenter:change', this.recreateLayers);
+  this.on('presenter:change', this.mapChange);
 };
 
 App.Mediator.prototype = _.clone(Backbone.Events);
 
 App.Mediator.prototype.recreateLayers = function() {
   var self = this;
-
-  _.each(app.models.layersPresenter.toJSON(), function(category) {
-    _.each(category, function(layer, layerName){
-      self.recreateLayer(layer, layerName)
-    });
-  });
+  app.presenter.eachLayer(this.recreateLayer);
 };
 
 App.Mediator.prototype.recreateLayer = function(layer, layerName) {
@@ -23,13 +24,13 @@ App.Mediator.prototype.recreateLayer = function(layer, layerName) {
     if (!app.views[layerName + 'Layer'].rendered) {
       app.views[layerName + 'Layer'].render();
     } else {
-      app.views[layerName + 'Layer'].filterTiles();
+      app.views[layerName + 'Layer'].updateTiles();
     }
   } else {
     if (app.views[layerName + 'Layer']) app.views[layerName + 'Layer'].removeLayer();
   }
 };
 
-App.Mediator.prototype.updateUrl = function() {
-  app.routers.main.navigate(app.models.layersPresenter.toUrl(), {trigger: false});
-};
+App.Mediator.prototype.mapChange = function() {
+  app.views.map.updateMap();
+}

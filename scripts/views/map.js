@@ -5,18 +5,26 @@ App.Views.Map = Backbone.View.extend({
   },
 
   render: function() {
+    var options = this.getMapOptions;
+    
+    options.center = new google.maps.LatLng(40.412568, -3.711133);
+    options.minZoom = 3;
 
-    var mapOptions = {
-      zoom: 3,
-      minZoom: 3,
-      center: new google.maps.LatLng(0, 0),
-      mapTypeId: google.maps.MapTypeId.TERRAIN
-    };
-
-    this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    this.map = new google.maps.Map(document.getElementById('map'), options);
 
     google.maps.event.addListenerOnce(this.map, 'idle', function() {
     });
+  },
+
+  updateMap: function() {
+    this.map.setOptions(this.getMapOptions());
+  },
+
+  getMapOptions: function() {
+    return {
+      zoom: app.presenter.get('map').zoom,
+      mapTypeId: app.presenter.get('map').mapType
+    };
   }
 
 });

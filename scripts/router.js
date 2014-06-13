@@ -1,17 +1,19 @@
 App.Routers.Main = Backbone.Router.extend({
 
   routes: {
-    '/:baseLayer': 'home',
-    '*path':       'home'
+    ':baseLayer/:zoom/:mapType/': 'home',
+    ':baseLayer/:zoom/:mapType': 'home'
   },
 
-  home: function(baseLayer) {
-    app.views.map = new App.Views.Map();
+  home: function(baseLayer, zoom, mapType) {
+    app.presenter = new App.Presenter();
     app.mediator = new App.Mediator();
-    app.models.layersPresenter = new App.Models.LayersPresenter();
+    app.views.map = new App.Views.Map();
 
-    app.models.layersPresenter.setFromUrl({
-      baseLayer: baseLayer
+    app.presenter.setFromUrl({
+      baseLayer: baseLayer,
+      zoom: zoom,
+      mapType: mapType
     });
   }
 

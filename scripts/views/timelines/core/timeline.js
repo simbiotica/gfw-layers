@@ -123,7 +123,7 @@ App.Views.Timeline = Backbone.View.extend({
   onAnimate: function() {
     var self = app.views.lossTimeline,
         value = self.hiddenBrush.extent()[0],
-        timelineDate = app.models.layersPresenter.getLayer(self.opts.layerName).timelineDate;
+        timelineDate = app.presenter.getLayer(self.opts.layerName).timelineDate;
 
     if (!self.playing) return;
 
@@ -178,7 +178,7 @@ App.Views.Timeline = Backbone.View.extend({
   onBrush: function(brushend) {
     var self = app.views.lossTimeline,
         value = self.brush.extent()[0],
-        timelineDate = app.models.layersPresenter.getLayer(self.opts.layerName).timelineDate;
+        timelineDate = app.presenter.getLayer(self.opts.layerName).timelineDate;
 
     if (self.playing && brushend) self.stopAnimation();
     if (self.playing) return;
@@ -241,7 +241,7 @@ App.Views.Timeline = Backbone.View.extend({
   },
 
   updateTimelineDate: function(timelineDate) {
-    app.models.layersPresenter.getLayer(this.opts.layerName).timelineDate = timelineDate;
-    app.models.layersPresenter.spread();
+    app.presenter.getLayer(this.opts.layerName).timelineDate = timelineDate;
+    app.presenter.spread();
   }
 });
