@@ -11,12 +11,14 @@ The mediator is listening to those events and call the views to perform required
 /#loss/9/terrain/
 
 On the console:
+```
 app.views.lossTimeline.animate();
 app.views.lossTimeline.stopAnimation();
 app.presenter.getLayer('forest').active = true;
 app.presenter.spread();
 app.presenter.get('map').zoom = 3;
 app.presenter.spread();
+```
 
 ## Presenter and events
 
