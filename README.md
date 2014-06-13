@@ -7,6 +7,17 @@ The presenter serialize those url params and set them nicely.
 The presenter trigger change events.
 The mediator is listening to those events and call the views to perform required changes.
 
+## Check it out
+/#loss/9/terrain/
+
+On the console:
+app.views.lossTimeline.animate();
+app.views.lossTimeline.stopAnimation();
+app.presenter.getLayer('forest').active = true;
+app.presenter.spread();
+app.presenter.get('map').zoom = 3;
+app.presenter.spread();
+
 ## Presenter and events
 
 When updating presenter model, you need to call presenter.spread() to trigger events.

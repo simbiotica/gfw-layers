@@ -32,5 +32,6 @@ App.Mediator.prototype.recreateLayer = function(layer, layerName) {
 };
 
 App.Mediator.prototype.mapChange = function() {
+  console.log('map change');
   app.views.map.updateMap();
 }
