@@ -58,8 +58,9 @@ App.Presenter = Backbone.Model.extend({
         baseLayer, zoom, mapType;
 
     // Get baselayer
-    this.eachLayer(function(layer, layerName) {
+    $.each(this.get('layers').forestChange, function(layerName, layer) {
       if (layer.active) baseLayer = layerName;
+      return false;
     });
 
     // Get map options
