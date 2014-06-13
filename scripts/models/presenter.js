@@ -34,9 +34,9 @@ App.Presenter = Backbone.Model.extend({
     attrs = attrs || {};
 
     // Set baselayer
-    $.each(this.get('layers'), function(k, category) {
-      if (category[attrs.baseLayer]) {
-        category[attrs.baseLayer].active = true;
+    $.each(this.get('layers').forestChange, function(layerName, layer) {
+      if (layerName === attrs.baseLayer) {
+        layer.active = true;
         return false;
       }
     });
@@ -46,6 +46,9 @@ App.Presenter = Backbone.Model.extend({
 
     // Set map type
     this.get('map').mapType = attrs.mapType || this.defaults.map.mapType;
+
+    // Set sublayer
+    // ...
 
     this.spread();
   },
