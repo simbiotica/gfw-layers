@@ -1,3 +1,7 @@
+## Design Pattern
+
+![alt tag](https://s3-eu-west-1.amazonaws.com/uploads-eu.hipchat.com/80556/764228/IPDUgmDgqr1XG3K/Captura%20de%20pantalla%202014-06-13%20a%20la%28s%29%2009.48.07.png)
+
 ## Presenter and events
 
 When updating presenter model, you need to call presenter.spread() to trigger events.
