@@ -12,7 +12,7 @@ App.Views.LossLayer = App.Views.CanvasLayer.extend({
   filterCanvasImage: function(imgdata, w, h) {
     var components = 4,
         z = app.views.map.map.getZoom(),
-        timelineDate = app.presenter.get('timelineDate') || app.views.lossTimeline.opts.dateRange;
+        timelineDate = app.presenter.get('timelineDate') || this.timeline.opts.dateRange;
 
     for(var i = 0; i < w; ++i) {
       for(var j = 0; j < h; ++j) {

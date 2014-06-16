@@ -3,7 +3,7 @@ App.Views.CartodbLayer = cdb.core.View.extend({
   initialize: function() {
     this.map = app.views.map.map;
     this.layer = {};
-    this.layerOrder = this.layerOrder || 1;
+    this.layerOrder = this.layerOrder || 1;
     this.rendered = false;
   },
 
@@ -36,22 +36,21 @@ App.Views.CartodbLayer = cdb.core.View.extend({
   },
 
   getQuery: function() {
-    var timelineDate = app.presenter.getLayer(this.layerName).timelineDate;
+    var timelineDate = app.presenter.get('timelineDate') || this.timeline.opts.dateRange;
 
-    return "SELECT * FROM " +
-           this.table +
-           " WHERE date between '" +
-           timelineDate[0].year() +
-           "-" +
-           timelineDate[0].month() +
-           "-1' AND '" +
-           timelineDate[1].year() +
-           "-" +
-           timelineDate[1].month() +
-           "-1'";
+    var sql = "SELECT * FROM " +
+              this.table +
+              " WHERE date between '" +
+              timelineDate[0].year() +
+              "-" +
+              timelineDate[0].month() +
+              "-1' AND '" +
+              timelineDate[1].year() +
+              "-" +
+              timelineDate[1].month() +
+              "-1'";
+
+    return sql;
    }
-
-  // removeLayer: function() {
-  // },
 
 });

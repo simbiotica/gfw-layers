@@ -5,8 +5,8 @@ App.Views.LossTimeline = App.Views.Timeline.extend({
     layerName: 'loss',
     xAxis: {
       months: {
-        enabled: true,
-        steps: true
+        enabled: false,
+        steps: false
       }
     }
   }

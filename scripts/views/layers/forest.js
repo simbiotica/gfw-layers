@@ -4,7 +4,7 @@ App.Views.ForestLayer = App.Views.CanvasLayer.extend({
     this.dataMaxZoom = 12;
     this.name = "forest2000";
     this.url = 'http://earthengine.google.org/static/hansen_2013/tree_alpha/%z/%x/%y.png';
-    this.parent.initialize.apply(this);
+    App.Views.ForestLayer.__super__.initialize.apply(this);
   },
 
   filterCanvasImage: function(imageData, w, h) {

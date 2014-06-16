@@ -7,17 +7,17 @@ App.Mediator = function() {
 
 // Render / remove layers
 App.Mediator.prototype.recreateLayers = function() {
-  var baseLayer = app.presenter.get('baseLayer'),
-      baseLayerView = app.views[baseLayer + 'Layer'];
+  var baseLayer = app.presenter.get('baseLayer');
 
-  if (!baseLayerView) {
-    baseLayerView = new App.Views[_(baseLayer).capitalize() + 'Layer']();
-    baseLayerView.render();
+  if (!app.views[baseLayer + 'Layer']) {
+    app.views[baseLayer + 'Layer'] = new App.Views[_(baseLayer).capitalize() + 'Layer']();
+    app.views[baseLayer + 'Layer'].render();
   }
 };
 
 App.Mediator.prototype.updateTimelineDate = function() {
   var baseLayer = app.presenter.get('baseLayer');
+
   app.views[baseLayer + 'Layer'].updateTiles();
 };
 
