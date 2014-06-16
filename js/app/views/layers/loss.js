@@ -4,7 +4,7 @@ define([
   'presenter',
   'views/layers/core/canvasLayer',
   'views/timelines/core/timeline'
-], function(Backbone, mps, presenter, CanvasLayer, Timeline) {
+], function(Backbone, mps, presenter, CanvasLayer, timeline) {
 
   var LossLayer = CanvasLayer.extend({
 
@@ -14,10 +14,11 @@ define([
       this.url = 'http://earthengine.google.org/static/hansen_2013/gfw_loss_year/%z/%x/%y.png';
 
       // Invoke CanvasLayer initialize
-      this.__super__.initialize.apply(this);
+      //this.__super__.initialize.apply(this);
+      CanvasLayer.prototype.initialize.call(this);
       
       // Timeline
-      this.timeline = new Timeline({
+      timeline.setOpts({
         dateRange: [2001, 2013],
         layerName: 'loss',
         xAxis: {

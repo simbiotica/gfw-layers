@@ -9,7 +9,7 @@ define([
   var Map = Backbone.View.extend({
     initialize: function() {
       _.bindAll(this, 'onZoomChange');
-      this.render();
+      //this.render();
 
       // Subscribe to add layer events
       mps.subscribe('map/add-layer', _.bind(function(layer) {
@@ -24,14 +24,14 @@ define([
 
     render: function() {
       console.log('MAP');      
-      gmap.init(_.bind(function() {
+      // gmap.init(_.bind(function() {
         var options = this.getMapOptions();
         options.center = new google.maps.LatLng(40.412568, -3.711133);
         options.minZoom = 3;
         this.map = new google.maps.Map(document.getElementById('map'), options);
         google.maps.event.addListener(this.map, 'zoom_changed', this.onZoomChange);
         this.resize();
-      }, this));
+      // }, this));
     },
 
     /**

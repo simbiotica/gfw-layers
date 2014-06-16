@@ -4,19 +4,20 @@ define([
   'backbone',
   'mps',
   'gmap',
-  'presenter'
-], function ($, _, Backbone, mps, gmap, presenter) {
+  'presenter',
+  'collections/layers',
+  'views/map'
+], function ($, _, Backbone, mps, gmap, presenter, layers, map) {
   
   var Router = Backbone.Router.extend({
 
     routes: {
-      ':baseLayer/:zoom/:mapType/': 'home',
-      ':baseLayer/:zoom/:mapType': 'home',
-      '*path': 'home'
+      "map/:baseLayer/:zoom/:mapType/:sublayers": "home",
     },
 
     initialize: function() {
       console.log('router.initialize()')
+      Backbone.Router.prototype.initialize.call(this);
       mps.subscribe('navigate', _.bind(function (place) {
         this.path = place.path;
         delete place['path'];
@@ -24,8 +25,19 @@ define([
       }, this));
     },
 
-    home: function (baseLayer, zoom, mapType) {
-      presenter.setFromUrl(arguments);
+    home: function(baseLayer, zoom, mapType, sublayers) {      
+      gmap.init(_.bind(function() {
+        map.render();
+        layers.fetch();
+        layers.bind('reset', function() {
+          presenter.setFromUrl({
+            baseLayer: baseLayer || 'umd_tree_loss_gain',
+            zoom: Number(zoom) || 3,
+            mapType: mapType || 'terrain',
+            sublayers: sublayers || ''
+          });
+        });
+    }, this));
     }
   });
 

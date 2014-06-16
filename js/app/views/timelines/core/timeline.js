@@ -1,7 +1,9 @@
 define([
   'backbone',
-  'presenter'
-], function(Backbone, presenter) {
+  'presenter',
+  'moment',
+  'd3'
+], function(Backbone, presenter, moment, d3) {
 
   var Timeline = Backbone.View.extend({
 

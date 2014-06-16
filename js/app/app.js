@@ -1,16 +1,13 @@
 define([
   'underscore',
   'mps',
+  'router',  // So that routes are setup before starting history.
   'Class'
-], function (_, mps, Class) {
+], function (_, mps, router, Class) {
 
   var App = Class.extend({
     init: function() {
       console.log('App.initialize()');
-      if (!Backbone.History.started) {
-        console.log('Backbone.history.start');
-        Backbone.history.start({pushState: true});
-      }
     }
   });
 

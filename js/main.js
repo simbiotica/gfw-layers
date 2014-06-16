@@ -16,6 +16,7 @@ require.config({
     text: ['lib/text'],
     Class: ['lib/class'],
     app: ['app/app'],
+    moment: ['lib/moment'],
     router: ['app/router'],
     mediator: ['app/mediator'],
     presenter: ['app/presenter'],
@@ -68,10 +69,17 @@ require.config({
 
 // Application entry point:
 require([
-  'Class',
   'app',
   'router',
   'presenter',
-  'mediator'], function (Class, app, router, presenter, mediator) {
+  'mediator',
+  'backbone'
+], function (app, router, presenter, mediator, Backbone) {
   console.log('Main entry point...', app);
+  if (!Backbone.History.started) {
+    console.log('Backbone.history.start');
+    Backbone.history.start({pushState: true});
+  }
+  window.app = app;
+  window.router = router;
 });

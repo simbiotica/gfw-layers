@@ -5,13 +5,14 @@ define([
   'Class',
   'presenter',
   'collections/layers',
-  'views/map'
-], function (_, Backbone, mps, Class, layers, map) {
+  'views/map',
+  'views/layers/loss'
+], function (_, Backbone, mps, Class, presenter, layers, map, LossLayer) {
 
   var Mediator = Class.extend({
     init: function() {
       
-      // Listen to presenter events
+    // Listen to presenter events
       presenter.on('change:baseLayer', this.checkBaselayers, this);
       presenter.on('change:timelineDate', this.updateBaselayerTiles, this);
       presenter.on('change:zoom', this.mapChange, this);
@@ -24,27 +25,19 @@ define([
     checkBaselayers: function() {
       var baseLayer = presenter.get('baseLayer');
 
-      layers.fetch();
-
-      layers.bind('reset', _.bind(function() {
-
-        // Remove baselayers
-        _.each(layers.getBaselayers(), function(layer) {
-          if (this.views[layer.slug + 'Layer']) {
-            this.views[layer.slug + 'Layer'].removeLayer();
-          }
-        });
-      
-        if (!thisviews[baseLayer + 'Layer']) {
-          // TODO
-          console.log('TODO: Create new layer...');
-          //this.views[baseLayer + 'Layer'] = new App.Views[_(baseLayer).capitalize() + 'Layer']();
+      // Remove baselayers
+      _.each(layers.getBaselayers(), _.bind(function(layer) {
+        if (this.views[layer.slug + 'Layer']) {
+          this.views[layer.slug + 'Layer'].removeLayer();
         }
-
-        // Render current Baselayer
-        this.views[baseLayer + 'Layer'].render();
-
       }, this));
+      
+      if (!this.views[baseLayer + 'Layer']) {
+        this.views[baseLayer + 'Layer'] = new LossLayer();
+      }
+
+      // Render current Baselayer
+      this.views[baseLayer + 'Layer'].render();
     },
 
     updateBaselayerTiles: function() {
@@ -56,4 +49,9 @@ define([
       map.updateMap();
     }
   });
+
+  var mediator = new Mediator();
+
+  return mediator;
+
 });
