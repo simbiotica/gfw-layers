@@ -7,6 +7,9 @@ window.App = {
   Mediator: {},
   Presenter: {},
   initialize: function() {
+    app.presenter = new App.Presenter();
+    app.mediator = new App.Mediator();
+    app.views.map = new App.Views.Map();
     app.routers.main = new App.Routers.Main();
     Backbone.history.start(); // {pushState: true}
   }

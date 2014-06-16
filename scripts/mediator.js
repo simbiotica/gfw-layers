@@ -1,36 +1,26 @@
 App.Mediator = function() {
-  /* TODO
-   * Be more specific:
-   *   map:change
-   *   layer:change
-  */
-
-  this.on('presenter:change', this.recreateLayers);
-  this.on('presenter:change', this.mapChange);
+  app.presenter.on('change:baseLayer', this.recreateLayers, this);
+  app.presenter.on('change:zoom', this.mapChange, this);
+  app.presenter.on('change:mapType', this.mapChange, this);
+  app.presenter.on('change:timelineDate', this.updateTimelineDate, this);
 };
 
-App.Mediator.prototype = _.clone(Backbone.Events);
-
+// Render / remove layers
 App.Mediator.prototype.recreateLayers = function() {
-  var self = this;
-  app.presenter.eachLayer(this.recreateLayer);
+  var baseLayer = app.presenter.get('baseLayer');
+
+  if (!app.views[baseLayer + 'Layer']) {
+    app.views[baseLayer + 'Layer'] = new App.Views[_(baseLayer).capitalize() + 'Layer']();
+    app.views[baseLayer + 'Layer'].render();
+  }
 };
 
-App.Mediator.prototype.recreateLayer = function(layer, layerName) {
-  if (layer.active) {
-    if (!app.views[layerName + 'Layer']) {
-      app.views[layerName + 'Layer'] = new App.Views[_(layerName).capitalize() + 'Layer']();
-    }
-    if (!app.views[layerName + 'Layer'].rendered) {
-      app.views[layerName + 'Layer'].render();
-    } else {
-      app.views[layerName + 'Layer'].updateTiles();
-    }
-  } else {
-    if (app.views[layerName + 'Layer']) app.views[layerName + 'Layer'].removeLayer();
-  }
+App.Mediator.prototype.updateTimelineDate = function() {
+  var baseLayer = app.presenter.get('baseLayer');
+
+  app.views[baseLayer + 'Layer'].updateTiles();
 };
 
 App.Mediator.prototype.mapChange = function() {
   app.views.map.updateMap();
-}
+};

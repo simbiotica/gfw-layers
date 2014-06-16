@@ -4,15 +4,15 @@ App.Views.LossLayer = App.Views.CanvasLayer.extend({
     this.dataMaxZoom = 12;
     this.name = "loss";
     this.url = 'http://earthengine.google.org/static/hansen_2013/gfw_loss_year/%z/%x/%y.png';
-    this.parent.initialize.apply(this);
 
+    App.Views.LossLayer.__super__.initialize.apply(this);
     app.views.lossTimeline = this.timeline = new App.Views.LossTimeline();
   },
 
   filterCanvasImage: function(imgdata, w, h) {
     var components = 4,
         z = app.views.map.map.getZoom(),
-        timelineDate = app.presenter.getLayer('loss').timelineDate;
+        timelineDate = app.presenter.get('timelineDate') || this.timeline.opts.dateRange;
 
     for(var i = 0; i < w; ++i) {
       for(var j = 0; j < h; ++j) {

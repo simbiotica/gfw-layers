@@ -23,13 +23,13 @@ App.Views.Map = Backbone.View.extend({
 
   getMapOptions: function() {
     return {
-      zoom: app.presenter.get('map').zoom,
-      mapTypeId: app.presenter.get('map').mapType
+      zoom: app.presenter.get('zoom'),
+      mapTypeId: app.presenter.get('mapType')
     };
   },
 
   onZoomChange: function() {
-    app.presenter.get('map').zoom = this.map.zoom;
+    app.presenter.set('zoom', this.map.zoom, {silent: true});
     app.presenter.updateUrl();
   }
 

@@ -1,106 +1,27 @@
 App.Presenter = Backbone.Model.extend({
 
   defaults: {
-    layers: {
-      forestChange: {
-        loss: {
-          active: false,
-          timelineDate: [2001, 2013]
-        },
-        imazon: {
-          active: false,
-          timelineDate: [moment([2007, 1, 1]), moment([2011, 8, 1])]
-        }
-      },
-      forestCover: {
-        forest: {
-          active: false
-        }
-      }
-    },
-    map: {
-      zoom: 3,
-      mapType: 'terrain'
-    }
+    baseLayer: '',
+    zoom: 0,
+    mapType: ''
   },
 
   initialize: function() {
-    this.on('change', function() {
-      app.mediator.trigger('presenter:change');
-    });
+    this.on('change', this.updateUrl, this);
   },
 
   setFromUrl: function(attrs) {
-    attrs = attrs || {};
+    var result = {
+      baseLayer: attrs[0] || 'loss',
+      zoom: Number(attrs[1]) || 3,
+      mapType: attrs[2] || 'terrain'
+    };
 
-    // Set baselayer
-    $.each(this.get('layers').forestChange, function(layerName, layer) {
-      if (layerName === attrs.baseLayer) {
-        layer.active = true;
-        return false;
-      }
-    });
-
-    // Set zoom
-    this.get('map').zoom = Number(attrs.zoom) || this.defaults.map.zoom;
-
-    // Set map type
-    this.get('map').mapType = attrs.mapType || this.defaults.map.mapType;
-
-    // Set sublayer
-    // ...
-
-    this.spread();
-  },
-
-  toUrl: function() {
-    var url = '/%baseLayer/%zoom/%mapType/',
-        baseLayer, zoom, mapType;
-
-    // Get baselayer
-    $.each(this.get('layers').forestChange, function(layerName, layer) {
-      if (layer.active) baseLayer = layerName;
-      return false;
-    });
-
-    // Get map options
-    zoom = this.get('map').zoom;
-    mapType = this.get('map').mapType;
-
-    url = url.replace('%baseLayer', baseLayer).replace('%zoom', zoom).replace('%mapType', mapType);
-
-    return url;
-  },
-
-  spread: function() {
-    this.trigger('change'); 
-    this.updateUrl();
-  },
-
-  getLayer: function(layerName) {
-    var result = {};
-
-    $.each(this.get('layers'), function(k, category) {
-      var layer = _.pick(category, layerName);
-      if (!_.isEmpty(layer)) {
-        result = layer[layerName];
-        return false;
-      }
-    });
-
-    return result;
-  },
-
-  eachLayer: function(callback, arguments) {
-    _.each(this.get('layers'), function(category) {
-      _.each(category, function(layer, layerName){
-        callback.apply(layer, [layer, layerName].concat(arguments));
-      });
-    });
+    this.set(result);
   },
 
   updateUrl: function() {
-    app.routers.main.navigate(this.toUrl(), {trigger: false});
+    app.routers.main.navigate(_.values(this.toJSON()).join('/'), {trigger: false});
   }
 
 });
