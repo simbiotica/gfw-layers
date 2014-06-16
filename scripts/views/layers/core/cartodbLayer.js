@@ -51,6 +51,17 @@ App.Views.CartodbLayer = cdb.core.View.extend({
               "-1'";
 
     return sql;
-   }
+   },
+
+  removeLayer: function() {
+    var overlays_length = this.map.overlayMapTypes.getLength();
+    if (overlays_length > 0) {
+      for (var i = 0; i< overlays_length; i++) {
+        var layer = this.map.overlayMapTypes.getAt(i);
+        if (layer && layer.name == this.table) this.map.overlayMapTypes.removeAt(i);
+        this.rendered = false;
+      }
+    }
+  }
 
 });

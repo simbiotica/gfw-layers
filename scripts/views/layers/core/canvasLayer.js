@@ -91,7 +91,6 @@ App.Views.CanvasLayer = Backbone.View.extend({
         var layer = this.map.overlayMapTypes.getAt(i);
         if (layer && layer.name == this.name) this.map.overlayMapTypes.removeAt(i);
         this.rendered = false;
-        // Backbone.View.prototype.remove.call(this);
       }
     }
   },
