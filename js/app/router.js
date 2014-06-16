@@ -2,22 +2,21 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'backbonequeryparams',
   'mps',
-  'views/map',
-  'gmap'
-], function ($, _, Backbone, bqp, mps, MapView, gmap) {
+  'gmap',
+  'presenter'
+], function ($, _, Backbone, mps, gmap, presenter) {
   
   var Router = Backbone.Router.extend({
 
     routes: {
-      '': 'map',
-      ':baseLayer/:zoom/:mapType': 'map'
+      ':baseLayer/:zoom/:mapType/': 'home',
+      ':baseLayer/:zoom/:mapType': 'home',
+      '*path': 'home'
     },
 
-    initialize: function(app) {
+    initialize: function() {
       console.log('router.initialize()')
-      this.app = app;
       mps.subscribe('navigate', _.bind(function (place) {
         this.path = place.path;
         delete place['path'];
@@ -25,28 +24,13 @@ define([
       }, this));
     },
 
-    detachCurrentView: function() {
-      var currentView = $('#content').children();
-      if (!_.isEmpty(currentView)) {
-        $(currentView).detach();
-      }
-    },
-
-    map: function (baseLayer, zoom, mapType) {
-      gmap.init(_.bind(function() {
-        this.detachCurrentView();
-        if (!this.mapView) {
-          this.mapView = new MapView(this.app);
-          $('#content').append(this.mapView.render().el);
-          this.mapView.setup();
-        } else {
-          $('#content').append(this.mapView.el); 
-          this.mapView.onShow();
-        }
-      }, this));
-    },    
-
+    home: function (baseLayer, zoom, mapType) {
+      presenter.setFromUrl(arguments);
+    }
   });
-  
-  return Router;
+
+  var router = new Router();
+
+  return router;
+
 });

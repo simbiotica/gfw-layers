@@ -1,42 +1,59 @@
-App.Mediator = function() {
-  app.presenter.on('change:baseLayer', this.checkBaselayers, this);
-  app.presenter.on('change:timelineDate', this.updateBaselayerTiles, this);
-  app.presenter.on('change:zoom', this.mapChange, this);
-  app.presenter.on('change:mapType', this.mapChange, this);
-};
+define([
+  'underscore',
+  'backbone',
+  'mps',
+  'Class',
+  'presenter',
+  'collections/layers',
+  'views/map'
+], function (_, Backbone, mps, Class, layers, map) {
 
-App.Mediator.prototype.checkBaselayers = function() {
-  var self = this, 
-      baseLayer = app.presenter.get('baseLayer');
+  var Mediator = Class.extend({
+    init: function() {
+      
+      // Listen to presenter events
+      presenter.on('change:baseLayer', this.checkBaselayers, this);
+      presenter.on('change:timelineDate', this.updateBaselayerTiles, this);
+      presenter.on('change:zoom', this.mapChange, this);
+      presenter.on('change:mapType', this.mapChange, this);
 
-  app.collections.layers = new App.Collections.Layers();
-  app.collections.layers.fetch();
+      this.collections = {};
+      this.views = {};
+    },
 
-  app.collections.layers.bind('reset', function() {
+    checkBaselayers: function() {
+      var baseLayer = presenter.get('baseLayer');
 
-    // Remove baselayers
-    _.each(this.getBaselayers(), function(layer) {
-      if (app.views[layer.slug + 'Layer']) {
-        app.views[layer.slug + 'Layer'].removeLayer();
-      }
-    });
-  
-    if (!app.views[baseLayer + 'Layer']) {
-      app.views[baseLayer + 'Layer'] = new App.Views[_(baseLayer).capitalize() + 'Layer']();
+      layers.fetch();
+
+      layers.bind('reset', _.bind(function() {
+
+        // Remove baselayers
+        _.each(layers.getBaselayers(), function(layer) {
+          if (this.views[layer.slug + 'Layer']) {
+            this.views[layer.slug + 'Layer'].removeLayer();
+          }
+        });
+      
+        if (!thisviews[baseLayer + 'Layer']) {
+          // TODO
+          console.log('TODO: Create new layer...');
+          //this.views[baseLayer + 'Layer'] = new App.Views[_(baseLayer).capitalize() + 'Layer']();
+        }
+
+        // Render current Baselayer
+        this.views[baseLayer + 'Layer'].render();
+
+      }, this));
+    },
+
+    updateBaselayerTiles: function() {
+      var baseLayer = presenter.get('baseLayer');
+      this.views[baseLayer + 'Layer'].updateTiles();
+    },
+
+    mapChange: function() {
+      map.updateMap();
     }
-
-    // Render current Baselayer
-    app.views[baseLayer + 'Layer'].render();
-
   });
-
-};
-
-App.Mediator.prototype.updateBaselayerTiles = function() {
-  var baseLayer = app.presenter.get('baseLayer');
-  app.views[baseLayer + 'Layer'].updateTiles();
-};
-
-App.Mediator.prototype.mapChange = function() {
-  app.views.map.updateMap();
-};
+});

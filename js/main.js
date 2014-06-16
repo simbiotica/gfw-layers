@@ -9,15 +9,19 @@ require.config({
     mps: ['lib/minpubsub'],
     backbonequeryparams: ['lib/backbone.queryparams'],
     gmap: ['app/gmap'],
+    d3: ['lib/d3'],
+    backbone_cartodb: ['lib/backbone.cartodb'],
     cartodb: ['lib/cartodb'],
     store: ['lib/store'],
     text: ['lib/text'],
-    oop: ['lib/class'],
+    Class: ['lib/class'],
     app: ['app/app'],
     router: ['app/router'],
     mediator: ['app/mediator'],
+    presenter: ['app/presenter'],
     views: ['app/views'],
-    models: ['app/models']
+    models: ['app/models'],
+    collections: ['app/collections']
   },
   
   shim: {
@@ -28,26 +32,23 @@ require.config({
       deps: ['jquery', 'underscore'],
       exports: 'Backbone',
     },
+    backbone_cartodb: {
+      deps: ['underscore', 'backbone'],
+      exports: 'backbone_cartodb'
+    },
     backbonequeryparams: {
       deps: ['backbone', 'underscore'],
       exports: 'backbonequeryparams'
     },
+    Class: {
+      exports: 'Class',
+    },    
     app: {
-      deps: ['mps'],
+      deps: ['mps', 'Class'],
       exports: 'app'
     },
     user: {
-      deps: ['oop']
-    },
-    oop: {
-      deps: [],
-      exports: 'oop',
-      init: function() {
-        var oop = {
-          Class: window.Class
-        };
-        return oop;
-      }
+      deps: ['Class']
     },
     mps: {
       deps: ['jquery', 'underscore'],
@@ -66,7 +67,11 @@ require.config({
 
 
 // Application entry point:
-require(['app'], function (app) {
-  console.log('Main entry point ...');
-  app.init();
+require([
+  'Class',
+  'app',
+  'router',
+  'presenter',
+  'mediator'], function (Class, app, router, presenter, mediator) {
+  console.log('Main entry point...', app);
 });

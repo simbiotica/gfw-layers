@@ -1,7 +1,7 @@
 App.Views.CanvasLayer = Backbone.View.extend({
 
   initialize: function () {
-    this.tileSize = new google.maps.Size(256, 256);
+    // this.tileSize = new google.maps.Size(256, 256);
     this.tiles = {};
     this.map = app.views.map.map;
     this.rendered = false;

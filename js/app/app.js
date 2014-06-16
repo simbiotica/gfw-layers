@@ -1,13 +1,20 @@
 define([
-  'jquery',
   'underscore',
-  'router',
-  'mediator',
-  'mps'
-], function ($, _, Router, Mediator, mps) {
+  'mps',
+  'Class'
+], function (_, mps, Class) {
 
-  var App = function () {
-  }
+  var App = Class.extend({
+    init: function() {
+      console.log('App.initialize()');
+      if (!Backbone.History.started) {
+        console.log('Backbone.history.start');
+        Backbone.history.start({pushState: true});
+      }
+    }
+  });
+
+  var app = new App();
 
   _.mixin({
     capitalize: function(string) {
@@ -32,16 +39,5 @@ define([
     }
   });
 
-  return {
-   init: function () {
-      console.log('App.initialize()');
-      var app = new App;
-      app.router = new Router(app);
-      // app.mediator = new Mediator();
-      if (!Backbone.History.started) {
-        console.log('Backbone.history.start');
-        Backbone.history.start({pushState: true});
-      }
-    },  
-  };
+  return app;
 });

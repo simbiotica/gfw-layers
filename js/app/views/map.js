@@ -1,36 +1,52 @@
-App.Views.Map = Backbone.View.extend({
-  
-  initialize: function() {
-    _.bindAll(this, 'onZoomChange');
-    this.render();
-  },
+define([
+  'backbone',
+  'presenter',
+  'gmap'
+], function(Backbone, presenter, gmap) {
 
-  render: function() {
-    var options = this.getMapOptions;
-        self = this;
-    
-    options.center = new google.maps.LatLng(40.412568, -3.711133);
-    options.minZoom = 3;
+  var Map = Backbone.View.extend({
+    initialize: function() {
+      _.bindAll(this, 'onZoomChange');
+      this.render();
+    },
 
-    this.map = new google.maps.Map(document.getElementById('map'), options);
+    render: function() {
+      console.log('MAP');      
+      gmap.init(_.bind(function() {
+        var options = this.getMapOptions();
+        options.center = new google.maps.LatLng(40.412568, -3.711133);
+        options.minZoom = 3;
+        this.map = new google.maps.Map(document.getElementById('map'), options);
+        google.maps.event.addListener(this.map, 'zoom_changed', this.onZoomChange);
+        this.resize();
+      }, this));
+    },
 
-    google.maps.event.addListener(this.map, 'zoom_changed', this.onZoomChange);
-  },
+    updateMap: function() {
+      this.map.setOptions(this.getMapOptions());
+    },
 
-  updateMap: function() {
-    this.map.setOptions(this.getMapOptions());
-  },
+    getMapOptions: function() {
+      return {
+        zoom: presenter.get('zoom'),
+        mapTypeId: presenter.get('mapType')
+      };
+    },
 
-  getMapOptions: function() {
-    return {
-      zoom: app.presenter.get('zoom'),
-      mapTypeId: app.presenter.get('mapType')
-    };
-  },
+    onZoomChange: function() {
+      presenter.set('zoom', this.map.zoom, {silent: true});
+      presenter.updateUrl();
+    },
 
-  onZoomChange: function() {
-    app.presenter.set('zoom', this.map.zoom, {silent: true});
-    app.presenter.updateUrl();
-  }
+    resize: function() {
+      google.maps.event.trigger(this.map, 'resize');
+      this.map.setZoom(this.map.getZoom());
+      this.map.setCenter(this.map.getCenter());
+    },
+  });
+
+  var map = new Map();
+
+  return map;
 
 });

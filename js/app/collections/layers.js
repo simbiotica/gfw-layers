@@ -1,14 +1,30 @@
-App.Collections.Layers = Backbone.CartoDB({user: 'wri-01'}).CartoDBCollection.extend({
+define([
+  'jquery',
+  'underscore',
+  'backbone',
+  'backbone_cartodb',
+  'mps',
+  'gmap',
+  'presenter'
+], function ($, _, Backbone, BackboneCartoDB, mps, gmap, presenter) {
 
-  sql: function() {
-    return ['SELECT cartodb_id AS id, slug, title, title_color, subtitle, sublayer, table_name, source, category_color, category_slug, category_name, external, zmin, zmax, ST_XMAX(the_geom) AS xmax,',
-      'ST_XMIN(the_geom) AS xmin, ST_YMAX(the_geom) AS ymax, ST_YMIN(the_geom) AS ymin, tileurl, true AS visible',
-      'FROM layerinfo_dev_copy',
-      'WHERE display = TRUE ORDER BY displaylayer, title ASC'].join(' ');
-  },
+	var LayerCollection = Backbone.CartoDB({user: 'wri-01'}).CartoDBCollection.extend({
 
-  getBaselayers: function() {
-    return _.where(this.toJSON(), {category_name: 'Forest change'})
-  }
+	  sql: function() {
+	    return [
+	    	'SELECT cartodb_id AS id, slug, title, title_color, subtitle, sublayer, table_name, source, category_color, category_slug, category_name, external, zmin, zmax, ST_XMAX(the_geom) AS xmax,',
+	      'ST_XMIN(the_geom) AS xmin, ST_YMAX(the_geom) AS ymax, ST_YMIN(the_geom) AS ymin, tileurl, true AS visible',
+	      'FROM layerinfo_dev_copy',
+	      'WHERE display = TRUE ORDER BY displaylayer, title ASC'].join(' ');
+	  },
+
+	  getBaselayers: function() {
+	    return _.where(this.toJSON(), {category_name: 'Forest change'})
+	  }
+	});
+
+	var layerCollection = new LayerCollection();
+
+	return layerCollection;
 
 });
