@@ -1,13 +1,25 @@
 define([
   'backbone',
+  'underscore',
   'presenter',
-  'gmap'
-], function(Backbone, presenter, gmap) {
+  'gmap',
+  'mps'
+], function(Backbone, _, presenter, gmap, mps) {
 
   var Map = Backbone.View.extend({
     initialize: function() {
       _.bindAll(this, 'onZoomChange');
       this.render();
+
+      // Subscribe to add layer events
+      mps.subscribe('map/add-layer', _.bind(function(layer) {
+        this.addLayer(layer);
+      }, this));
+
+      // Subscribe to remove layer events
+      mps.subscribe('map/remove-layer', _.bind(function(layer) {
+        this.removeLayer(layer);
+      }, this));
     },
 
     render: function() {
@@ -20,6 +32,26 @@ define([
         google.maps.event.addListener(this.map, 'zoom_changed', this.onZoomChange);
         this.resize();
       }, this));
+    },
+
+    /**
+     * Add supplied layer to map.
+     */
+    addLayer: function(layer) {
+      this.map.overlayMapTypes.push(layer);
+    },
+
+    /**
+     * Remove layer from map using supplied layer name.
+     */
+    removeLayer: function(name) {
+      var overlays_length = this.map.overlayMapTypes.getLength();
+      if (overlays_length > 0) {
+        for (var i = 0; i< overlays_length; i++) {
+          var layer = this.map.overlayMapTypes.getAt(i);
+          if (layer && layer.name == name) this.map.overlayMapTypes.removeAt(i);
+        }
+      }
     },
 
     updateMap: function() {
