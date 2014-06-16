@@ -11,7 +11,7 @@ window.App = {
     app.mediator = new App.Mediator();
     app.views.map = new App.Views.Map();
     app.routers.main = new App.Routers.Main();
-    Backbone.history.start(); // {pushState: true}
+    Backbone.history.start({pushState: true});
   }
 };
 

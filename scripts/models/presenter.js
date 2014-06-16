@@ -1,23 +1,20 @@
 App.Presenter = Backbone.Model.extend({
 
-  defaults: {
-    baseLayer: '',
-    zoom: 0,
-    mapType: ''
-  },
-
   initialize: function() {
     this.on('change', this.updateUrl, this);
   },
 
-  setFromUrl: function(attrs) {
-    var result = {
-      baseLayer: attrs[0] || 'loss',
-      zoom: Number(attrs[1]) || 3,
-      mapType: attrs[2] || 'terrain'
+  setFromUrl: function(arr) {
+    var baseLayer = app.collections.layers.getBaselayer(arr.baseLayer).slug;
+    console.log(app.collections.layers.getBaselayer(arr.baseLayer).get('slug'));
+
+    var attrs = {
+      baseLayer: baseLayer   || 'loss',
+      zoom:      arr.zoom    || 3,
+      mapType:   arr.mapType || 'terrain'
     };
 
-    this.set(result);
+    this.set(attrs);
   },
 
   updateUrl: function() {

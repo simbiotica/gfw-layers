@@ -9,6 +9,10 @@ App.Collections.Layers = Backbone.CartoDB({user: 'wri-01'}).CartoDBCollection.ex
 
   getBaselayers: function() {
     return _.where(this.toJSON(), {category_name: 'Forest change'})
+  },
+
+  getBaselayer: function(baselayer) {
+    return _.where(this.toJSON(), {category_name: 'Forest change', slug: baselayer})
   }
 
 });
