@@ -1,38 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>GFW</title>
-  <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.css">
-  <link rel="stylesheet" type="text/css" href="style/main.css">
+    <title>GFW Layers</title
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" href="http://cartodb.com/assets/favicon.ico" />
+    <link rel="stylesheet" href="http://libs.cartocdn.com/cartodb.js/v3/themes/css/cartodb.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.css">
+    <link href="/css/main.css" rel="stylesheet">
+    
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
-
 <body>
-  <!-- map -->
-  <div id="map"></div>
-  
-  <!-- javascripts -->
-  <script src="http://libs.cartocdn.com/cartodb.js/v3/cartodb.js"></script>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=drawing,geometry&sensor=false"></script>
-  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.8/d3.min.js"></script>
-  <script src="vendor/wax.g.min.js"></script>
-  <script src="vendor/moment.min.js"></script>
-  <script src="vendor/cartodb-gmapsv3.js"></script>
-  <script src="vendor/backbone.js"></script>
-  <script src="vendor/backbone-cartodb.js"></script>
-  <script src="scripts/main.js"></script>
-  <script src="scripts/router.js"></script>
-  <script src="scripts/views/map.js"></script>
-  <script src="scripts/views/layers/core/canvasLayer.js"></script>
-  <script src="scripts/views/layers/core/cartodbLayer.js"></script>
-  <script src="scripts/views/layers/forest.js"></script>
-  <script src="scripts/views/layers/loss.js"></script>
-  <script src="scripts/views/layers/imazon.js"></script>
-  <script src="scripts/views/timelines/core/timeline.js"></script>
-  <script src="scripts/views/timelines/loss.js"></script>
-  <script src="scripts/views/timelines/imazon.js"></script>
-  <script src="scripts/collections/layers.js"></script>
-  <script src="scripts/models/presenter.js"></script>
-  <script src="scripts/mediator.js"></script>
-
+  <div id="holder">
+    <div id="main-spinner"></div>
+    <div id="header"></div>
+    <div id="content">
+    </div>
+    <div id="footer"></div>
+  </div>
+    <script data-main="/js/main.js" src="/js/lib/require.js"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-41203333-1', 'vertnet.org');
+      ga('send', 'pageview');
+    </script>
 </body>
 </html>

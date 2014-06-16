@@ -22,7 +22,7 @@ app.presenter.spread();
 
 ## Presenter and events
 
-When updating the presenter instance, you need to call presenter.spread() to trigger events.
+When updating presenter model, you need to call presenter.spread() to trigger events.
 
 ## Canvas performance
 
