@@ -16,6 +16,7 @@ require.config({
     text: ['lib/text'],
     Class: ['lib/class'],
     app: ['app/app'],
+    nsa: ['app/nsa'],
     moment: ['lib/moment'],
     router: ['app/router'],
     mediator: ['app/mediator'],

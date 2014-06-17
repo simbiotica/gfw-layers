@@ -10,8 +10,9 @@ define([
   'backbone',
   'presenter',
   'moment',
-  'd3'
-], function(Backbone, presenter, moment, d3) {
+  'd3',
+  'mps'
+], function(Backbone, presenter, moment, d3, mps) {
 
   var Timeline = Backbone.View.extend({
 
@@ -260,7 +261,7 @@ define([
     },
 
     updateTimelineDate: function(timelineDate) {
-      presenter.set('timelineDate', timelineDate);
+      mps.publish('timeline/on-dates-change', [timelineDate]);
     }
   });
 

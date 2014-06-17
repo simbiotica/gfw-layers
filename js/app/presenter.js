@@ -21,6 +21,16 @@ define([
 
     initialize: function() {
       this.on('change', this.updateUrl, this);
+
+      // Subscribe to map events
+      mps.subscribe('map/on-zoom-change', _.bind(function(zoom) {
+        this.set('zoom', zoom);
+      }, this));
+
+      // Subscribe to timeline events
+      mps.subscribe('timeline/on-dates-change', _.bind(function(dates) {
+        this.set('timelineDate', dates);
+      }, this));
     },
 
     setFromUrl: function(arr) {
