@@ -1,3 +1,11 @@
+/**
+ * The mediator module.
+ *
+ * Mediator listens to events fired by the Presenter and renders the 
+ * appropriate views.
+ * 
+ * @return singleton instance of Mediator class.
+ */
 define([
   'underscore',
   'backbone',

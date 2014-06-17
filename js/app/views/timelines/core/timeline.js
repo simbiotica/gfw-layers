@@ -1,3 +1,11 @@
+/**
+ * The timeline module.
+ *
+ * Timeline for all layers configured by setting layer-specific options via
+ * the setOpts() function.
+ * 
+ * @return singleton instance of Timeline class (extends Backbone.View).
+ */
 define([
   'backbone',
   'presenter',
@@ -217,18 +225,21 @@ define([
           .attr("cx", self.xscale(Math.round(value)));
 
         self.updateSelectedDomain(Math.round(value), 'left');
-        if (brushend) self.updateTimelineDate([Math.round(value), timelineDate[1]])
+        if (brushend) {
+          self.updateTimelineDate([Math.round(value), timelineDate[1]]);
+        }
       }
     },
 
     updateSelectedDomain: function(value, position) {
+      var pathinfo = null;
       if (position == 'right') {
-        var pathinfo = [
+        pathinfo = [
           {x: this.handlers.left.attr("cx"), y: 0},
           {x: this.xscale(value), y: 0}
         ];
       } else {
-        var pathinfo = [
+        pathinfo = [
           {x: this.xscale(value), y: 0},
           {x: this.handlers.right.attr("cx"), y: 0}
         ];

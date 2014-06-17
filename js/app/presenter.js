@@ -1,3 +1,10 @@
+/**
+ * The presenter module.
+ *
+ * Presenter fires events in response to changing URL routes.
+ * 
+ * @return singleton instance of Presenter class.
+ */
 define([
   'backbone',
   'mps',
@@ -33,7 +40,7 @@ define([
       var place = {
         path: _.values(this.toJSON()).join('/'),
         trigger: true
-      }
+      };
       mps.publish('navigate', [place]);
     }
 

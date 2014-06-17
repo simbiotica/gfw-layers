@@ -1,3 +1,9 @@
+/**
+ * The layer collection module.
+ * 
+ * @return singleton instance of LayerCollection class (extends 
+ * Backbone.CartoDB.CartoDBCollection).
+ */
 define([
   'jquery',
   'underscore',

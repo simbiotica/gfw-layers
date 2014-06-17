@@ -1,3 +1,9 @@
+/**
+ * The main module.
+ * 
+ * Defines all path dependencies, shims, and the application entry point which
+ * is referenced from index.html.
+ */
 require.config({ 
 
   baseUrl: '/js',

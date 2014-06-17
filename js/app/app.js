@@ -1,7 +1,12 @@
+/**
+ * The application module.
+ * 
+ * @return singleton instance of App class.
+ */
 define([
   'underscore',
   'mps',
-  'router',  // So that routes are setup before starting history.
+  'router',  // So that routes are setup before starting history!
   'Class'
 ], function (_, mps, router, Class) {
 

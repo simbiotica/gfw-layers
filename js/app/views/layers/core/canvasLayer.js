@@ -1,3 +1,8 @@
+/**
+ * The HTML5 Canvas map layer module.
+ * 
+ * @return CanvasLayer class (extends Backbone.View).
+ */
 define([
   'backbone',
   'mps'
@@ -14,7 +19,7 @@ define([
     // TODO: MPS so map adds layer
     render: function() {
       if (!this.rendered) {
-        mps.publish('map/add-layer', [this])
+        mps.publish('map/add-layer', [this]);
       }
       this.rendered = true;
     },
@@ -37,7 +42,7 @@ define([
       }
 
       this.tiles[tileId] = canvas;
-      this.canvasSetup(canvas, coord, zoom)
+      this.canvasSetup(canvas, coord, zoom);
 
       return canvas;
     },
@@ -113,9 +118,9 @@ define([
         var zsteps = coord.z - this.dataMaxZoom;
 
         if (zsteps > 0) {
-          ctx['imageSmoothingEnabled'] = false;
-          ctx['mozImageSmoothingEnabled'] = false;
-          ctx['webkitImageSmoothingEnabled'] = false;
+          ctx.imageSmoothingEnabled = false;
+          ctx.mozImageSmoothingEnabled = false;
+          ctx.webkitImageSmoothingEnabled = false;
 
           var srcX = 256 / Math.pow(2, zsteps) * (coord.x % Math.pow(2, zsteps)),
               srcY = 256 / Math.pow(2, zsteps) * (coord.y % Math.pow(2, zsteps)),

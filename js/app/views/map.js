@@ -1,3 +1,10 @@
+/**
+ * The map module.
+ *
+ * View for the Google Map.
+ * 
+ * @return singleton instance of Map class (extends Backbone.View).
+ */
 define([
   'backbone',
   'underscore',

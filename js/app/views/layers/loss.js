@@ -1,3 +1,8 @@
+/**
+ * The loss layer module for use on canvas.
+ *
+ * @return LossLayer class (extends CanvasLayer)
+ */
 define([
   'backbone',
   'mps',
