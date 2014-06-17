@@ -3,19 +3,20 @@ require.config({
   baseUrl: '../js',
   
   paths: {
-    jquery: ['lib/jquery'],
+     jquery: ['lib/jquery'],
     underscore: ['lib/underscore'],
     backbone: ['lib/backbone'],
     mps: ['lib/minpubsub'],
     backbonequeryparams: ['lib/backbone.queryparams'],
     gmap: ['app/gmap'],
-    cartodb: ['lib/cartodb'],
     d3: ['lib/d3'],
-    backbone_cartodb: ['lib/backbone.cartodb'],    
+    backbone_cartodb: ['lib/backbone.cartodb'],
+    cartodb: ['lib/cartodb'],
     store: ['lib/store'],
     text: ['lib/text'],
-    oop: ['lib/class'],
+    Class: ['lib/class'],
     app: ['app/app'],
+    moment: ['lib/moment'],
     router: ['app/router'],
     mediator: ['app/mediator'],
     presenter: ['app/presenter'],
@@ -34,26 +35,23 @@ require.config({
       deps: ['jquery', 'underscore'],
       exports: 'Backbone',
     },
+    backbone_cartodb: {
+      deps: ['underscore', 'backbone'],
+      exports: 'backbone_cartodb'
+    },
     backbonequeryparams: {
       deps: ['backbone', 'underscore'],
       exports: 'backbonequeryparams'
     },
+    Class: {
+      exports: 'Class',
+    },    
     app: {
-      deps: ['mps'],
+      deps: ['mps', 'Class'],
       exports: 'app'
     },
     user: {
-      deps: ['oop']
-    },
-    oop: {
-      deps: [],
-      exports: 'oop',
-      init: function() {
-        var oop = {
-          Class: window.Class
-        };
-        return oop;
-      }
+      deps: ['Class']
     },
     mps: {
       deps: ['jquery', 'underscore'],
@@ -80,7 +78,7 @@ require([], function(){
   // Add links to the spec files here
   var specs = [];
   specs.push('spec/app_spec');
-  specs.push('spec/router_spec');
+  //specs.push('spec/router_spec');
 
   // Execute specs
   require(specs, function(){

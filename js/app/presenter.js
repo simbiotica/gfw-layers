@@ -39,7 +39,7 @@ define([
     updateUrl: function() {
       var place = {
         path: _.values(this.toJSON()).join('/'),
-        trigger: true
+        trigger: false
       };
       mps.publish('navigate', [place]);
     }
