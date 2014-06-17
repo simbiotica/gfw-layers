@@ -14,8 +14,8 @@ define([
       this.url = 'http://earthengine.google.org/static/hansen_2013/gfw_loss_year/%z/%x/%y.png';
 
       // Invoke CanvasLayer initialize
-      //this.__super__.initialize.apply(this);
-      CanvasLayer.prototype.initialize.call(this);
+      LossLayer.__super__.initialize.apply(this);
+      //CanvasLayer.prototype.initialize.call(this);
       
       // Timeline
       timeline.setOpts({
@@ -33,7 +33,7 @@ define([
     filterCanvasImage: function(imgdata, w, h) {
       var components = 4,
           z = presenter.get('zoom'),
-          timelineDate = presenter.get('timelineDate') || this.timeline.opts.dateRange;
+          timelineDate = presenter.get('timelineDate') || timeline.opts.dateRange;
 
       for(var i = 0; i < w; ++i) {
         for(var j = 0; j < h; ++j) {

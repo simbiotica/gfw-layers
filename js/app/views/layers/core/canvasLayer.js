@@ -6,7 +6,7 @@ define([
   var CanvasLayer = Backbone.View.extend({
 
     initialize: function () {
-      this.tileSize = 256;
+      this.tileSize = new google.maps.Size(256, 256);
       this.tiles = {};
       this.rendered = false;
     },
@@ -26,8 +26,8 @@ define([
       canvas.style.padding = "0";
 
       var ctx = canvas.getContext('2d');
-      ctx.width = canvas.width = this.tileSize;
-      ctx.height = canvas.height = this.tileSize;
+      ctx.width = canvas.width = this.tileSize.width;
+      ctx.height = canvas.height = this.tileSize.height;
 
       var tileId = coord.x + '_' + coord.y + '_' + zoom;
       canvas.setAttribute('id', tileId);

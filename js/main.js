@@ -67,7 +67,7 @@ require.config({
 });
 
 
-// Application entry point:
+// Application entry point
 require([
   'app',
   'router',
@@ -80,6 +80,4 @@ require([
     console.log('Backbone.history.start');
     Backbone.history.start({pushState: true});
   }
-  window.app = app;
-  window.router = router;
 });
