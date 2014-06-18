@@ -3,7 +3,7 @@ require.config({
   baseUrl: '../js',
   
   paths: {
-     jquery: ['lib/jquery'],
+    jquery: ['lib/jquery'],
     underscore: ['lib/underscore'],
     backbone: ['lib/backbone'],
     mps: ['lib/minpubsub'],
@@ -15,17 +15,24 @@ require.config({
     store: ['lib/store'],
     text: ['lib/text'],
     Class: ['lib/class'],
+    uri: ['lib/uri'],
     app: ['app/app'],
     nsa: ['app/nsa'],
     moment: ['lib/moment'],
+    analysis: ['app/analysis'],
     router: ['app/router'],
     mediator: ['app/mediator'],
     presenter: ['app/presenter'],
     views: ['app/views'],
     models: ['app/models'],
     collections: ['app/collections'],
+    
     spec: ['../test/spec'],
-    helpers: ['../test/helpers']
+    helpers: ['../test/helpers'],
+    jasmine: ['../test/lib/jasmine'],
+    jasmine_html: ['../test/lib/jasmine-html'],
+    jasmine_boot: ['../test/lib/boot'],
+    mock_ajax: ['../test/lib/mock-ajax']
   },
   
   shim: {
@@ -44,6 +51,9 @@ require.config({
       deps: ['backbone', 'underscore'],
       exports: 'backbonequeryparams'
     },
+    uri: {
+      exports: 'UriTemplate',
+    },    
     Class: {
       exports: 'Class',
     },    
@@ -69,21 +79,8 @@ require.config({
   }
 });
 
-require([], function(){
-  var jasmineEnv = jasmine.getEnv();
-
-  var htmlReporter = new jasmine.HtmlReporter();
-
-  jasmineEnv.addReporter(htmlReporter);
-
-  // Add links to the spec files here
-  var specs = [];
-  specs.push('spec/app_spec');
-  //specs.push('spec/router_spec');
-
-  // Execute specs
-  require(specs, function(){
-    jasmineEnv.execute();
-  });
- 
+require(
+['spec/analysis_spec', 'mock_ajax'], 
+function(){
+  // NOOP
 });

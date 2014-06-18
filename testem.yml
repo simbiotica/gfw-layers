@@ -1,4 +1,4 @@
-framework: jasmine 
+framework: jasmine2
 test_page: test/index.html
 src_files:
 - js/**

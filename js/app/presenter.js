@@ -45,7 +45,6 @@ define([
       this.set(attrs);
     },
 
-    // TODO: Only router should call navigate via mps events.
     updateUrl: function() {
       var place = {
         path: _.values(this.toJSON()).join('/'),

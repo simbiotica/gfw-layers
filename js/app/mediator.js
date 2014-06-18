@@ -20,7 +20,7 @@ define([
   var Mediator = Class.extend({
     init: function() {
       
-    // Listen to presenter events
+      // Listen to presenter events
       presenter.on('change:baseLayer', this.checkBaselayers, this);
       presenter.on('change:timelineDate', this.updateBaselayerTiles, this);
       presenter.on('change:zoom', this.mapChange, this);

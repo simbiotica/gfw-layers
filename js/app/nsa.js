@@ -8,11 +8,11 @@ define([
      * Executes an RPC asynchronously.
      * 
      * Args:
-     *   url: The URL endpoint for the RPC
-     *   data: Object with RPC parameters.
+     *   url: The URL endpoint
+     *   data: Object with parameters.
      *   callback: Object with a success and error function.
      */
-    execute: function(url, data, callback) {
+    spy: function(url, data, success, error) {
       var jqxhr = null;
       var key = null;
       var val = null;
@@ -22,13 +22,13 @@ define([
         type: "POST",
         data: JSON.stringify(data),
         success: function(response) {
-          if (callback) {
-            callback.success(response);
+          if (success) {
+            success(response);
           }
         },
-        error: function(status, error) {
-          if (callback) {
-            callback.error(status, error);
+        error: function(status, msg) {
+          if (error) {
+            error(status, msg);
           }
         },
         contentType: 'application/json', 
@@ -36,5 +36,5 @@ define([
       });
       return jqxhr;
     }
-  }
+  };
 });

@@ -16,12 +16,15 @@ require.config({
     backbonequeryparams: ['lib/backbone.queryparams'],
     gmap: ['app/gmap'],
     d3: ['lib/d3'],
+    uri: ['lib/uri'],
+    jasmine: ['lib/jasmine'],
     backbone_cartodb: ['lib/backbone.cartodb'],
     cartodb: ['lib/cartodb'],
     store: ['lib/store'],
     text: ['lib/text'],
     Class: ['lib/class'],
     app: ['app/app'],
+    analysis: ['app/analysis'],
     nsa: ['app/nsa'],
     moment: ['lib/moment'],
     router: ['app/router'],
@@ -49,8 +52,11 @@ require.config({
       exports: 'backbonequeryparams'
     },
     Class: {
-      exports: 'Class',
-    },    
+      exports: 'Class'
+    },   
+    uri: {
+      exports: 'UriTemplate',
+    },
     app: {
       deps: ['mps', 'Class'],
       exports: 'app'
@@ -80,11 +86,18 @@ require([
   'router',
   'presenter',
   'mediator',
-  'backbone'
-], function (app, router, presenter, mediator, Backbone) {
+  'backbone',
+  'analysis',
+  'mps',
+  'jasmine'
+], function (app, router, presenter, mediator, Backbone, analysis, mps, jasmine) {
   console.log('Main entry point...', app);
   if (!Backbone.History.started) {
     console.log('Backbone.history.start');
     Backbone.history.start({pushState: true});
   }
+  // For dev
+  window.analysis = analysis;
+  window.mps = mps;
+  window.jasmine = jasmine;
 });
